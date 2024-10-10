@@ -49,6 +49,9 @@ function Login() {
                     value={loginForm.password}
                     placeholder="Type your password"
                 />
+                <Link to="/forgot-password" className="text-[#8f8e8e] flex justify-end">
+                    <p>Forgot password?</p>
+                </Link>
 
                 <button
                     onClick={handleLogin}

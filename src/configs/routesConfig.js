@@ -4,5 +4,7 @@ export const RoutesConfig = {
     home: '/',
     dashboard: '/dashboard',
     project: '/project',
-    device:'/device'
+    device:'/device',
+    forgotPassword:'/forgot-password',
+    resetPassword:'/reset-password/:token'
 };

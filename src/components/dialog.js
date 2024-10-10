@@ -150,7 +150,7 @@ function Dialog({ getProjectFunc, data, onclose }) {
                     </Form.Item>
 
                     <Form.Item name="description" label="Description">
-                        <Input.TextArea rows={5} placeholder="Description" readOnly={isUser()} />
+                        <Input.TextArea placeholder="Description" readOnly={isUser()} />
                     </Form.Item>
                 </Form>
             </Modal>
