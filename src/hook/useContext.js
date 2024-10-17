@@ -10,7 +10,7 @@ const ModalSupportProvider = ({ children }) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const value = { isModalOpen, showModal, handleCancel};
+    const value = { isModalOpen, showModal, handleCancel };
     return <modalSupportContext.Provider value={value}>{children}</modalSupportContext.Provider>;
 };
 

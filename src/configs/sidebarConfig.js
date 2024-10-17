@@ -1,58 +1,114 @@
- import {
-    faBuilding,
-    faChartBar,
-    faCircleInfo,
-    faCircleQuestion,
-    faCloud,
-    faGear,
-    faListCheck,
-    faLocationArrow,
-    faMobile,
-    faUser,
-} from '@fortawesome/free-solid-svg-icons';
-
-export const menuItems = [
+import {
+    SignalFilled,
+    MailOutlined,
+    SettingOutlined,
+    ProjectOutlined,
+    PhoneOutlined,
+    ProjectFilled,
+} from '@ant-design/icons';
+export const listItems = [
     {
-        title: 'Project',
-        icon: faBuilding,
-        subItems: [
-            { label: 'Dashboard', route: 'dashboard', icon: faChartBar },
-            { label: 'My Project', route: 'project', icon: faListCheck },
-            { label: 'Device', route: 'device', icon: faMobile },
+        key: 'sub1',
+        label: 'Project management',
+        icon: <ProjectFilled />,
+        children: [
+            {
+                key: '1',
+                icon: <SignalFilled />,
+                label: 'Dashboard',
+                route: '/dashboard',
+            },
+            {
+                key: '2',
+                icon: <ProjectOutlined />,
+                label: 'Project',
+                route: '/project',
+            },
+            {
+                key: '3',
+                icon: <PhoneOutlined />,
+                label: 'Device',
+                route: '/device',
+            },
         ],
     },
     {
-        title: 'Navigator',
-        icon: faLocationArrow,
-        roleId: 2,
-        subItems: [
-            { label: 'Option 1', route: '', icon: faUser },
-            { label: 'Option 2', route: '', icon: faUser },
-            { label: 'Option 3', route: '', icon: faUser },
-            { label: 'Option 4', route: '', icon: faUser },
-            { label: 'Option 5', route: '', icon: faUser },
-            { label: 'Option 6', route: '', icon: faUser },
+        key: 'sub2',
+        label: 'Manage Support',
+        route: '/manage-support',
+        roleid: 2,
+        icon: <MailOutlined />,
+    },
+    {
+        key: 'sub3',
+        label: 'Navigation Three',
+        icon: <SettingOutlined />,
+        children: [
+            {
+                key: '9',
+                label: 'Option 9',
+            },
+            {
+                key: '10',
+                label: 'Option 10',
+            },
+            {
+                key: '11',
+                label: 'Option 11',
+            },
+            {
+                key: '12',
+                roleid: 2,
+                label: 'Option 12',
+            },
         ],
     },
     {
-        title: 'Documentation',
-        roleId: 2,
-        icon: faCloud,
-        route: 'documentation',
+        key: 'sub3',
+        label: 'Navigation Three',
+        icon: <SettingOutlined />,
+        children: [
+            {
+                key: '9',
+                label: 'Option 9',
+            },
+            {
+                key: '10',
+                label: 'Option 10',
+            },
+            {
+                key: '11',
+                label: 'Option 11',
+            },
+            {
+                key: '12',
+                roleid: 2,
+                label: 'Option 12',
+            },
+        ],
     },
     {
-        title: 'Settings',
-        icon: faGear,
-        route: 'settings',
-    },
-    {
-        title: 'Help',
-        icon: faCircleInfo,
-        subItems: [
-            { label: 'FAQ', route: 'faq', icon: faCircleQuestion },
-            { label: 'Contact Support', route: 'support', icon: faCloud },
+        key: 'sub3',
+        label: 'Navigation Three',
+        icon: <SettingOutlined />,
+        children: [
+            {
+                key: '9',
+                label: 'Option 9',
+            },
+            {
+                key: '10',
+                label: 'Option 10',
+            },
+            {
+                key: '11',
+                label: 'Option 11',
+            },
+            {
+                key: '12',
+                roleid: 2,
+                label: 'Option 12',
+            },
         ],
     },
 ];
- 
-

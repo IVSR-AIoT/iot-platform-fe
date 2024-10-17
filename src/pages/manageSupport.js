@@ -34,6 +34,7 @@ export default function ManageSupport() {
             } else {
                 res = await getListByQuery(debouncedValue);
             }
+            console.log(res);
             const data = res.map((item) => {
                 return {
                     subject: item.title,
@@ -48,6 +49,7 @@ export default function ManageSupport() {
                     isReplied: item.isReplied,
                     adminName: item.isReplied ? item.admin.name : '',
                     adminEmail: item.isReplied ? item.admin.email : '',
+                    methodMessage: item.methodMessage,
                 };
             });
             setSupportRequests(data);
@@ -66,7 +68,7 @@ export default function ManageSupport() {
         setDetailRequest(null);
     };
     return (
-        <div className="h-full">
+        <div className="h-auto bg-[#F0F2F5]">
             <div className="p-3 w-[30%]">
                 <Search
                     className="my-[20px]"

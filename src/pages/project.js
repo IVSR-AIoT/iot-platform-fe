@@ -34,8 +34,8 @@ export default function Project() {
     }, [getProjectFunc]);
 
     return (
-        <div className="h-screen">
-            <div className="mt-[20px] ml-[20px]">
+        <div className="h-screen bg-[#F0F2F5]">
+            <div className="pt-[20px] pl-[20px]">
                 <Dialog data={selectedProject} onclose={handleCloseDialog} getProjectFunc={getProjectFunc} />
             </div>
 
@@ -48,7 +48,7 @@ export default function Project() {
                     );
                 })}
             </div>
-            <CreateSupportModal/>
+            <CreateSupportModal />
         </div>
     );
 }

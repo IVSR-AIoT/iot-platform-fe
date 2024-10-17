@@ -132,20 +132,27 @@ function Dialog({ getProjectFunc, data, onclose }) {
                     }}
                     onFinish={onCreate}
                 >
-                    <Form.Item name="name" label="Name:" required={!isUser() && true}>
+                    <Form.Item
+                        name="name"
+                        label={<label className="text-gray-800 font-semibold">Name</label>}
+                        required={!isUser() && true}
+                    >
                         {isUser() ? (
-                            <p className="text-gray-800 font-semibold">{form.getFieldValue('name')}</p>
+                            <p>{form.getFieldValue('name')}</p>
                         ) : (
                             <Input placeholder="Name" />
                         )}
                     </Form.Item>
 
-                    <Form.Item name="userIds" label="Users in Project:">
+                    <Form.Item
+                        name="userIds"
+                        label={<label className="text-gray-800 font-semibold">Users in project</label>}
+                    >
                         {isUser() ? (
                             <ul>
                                 {userInProject.map((item, index) => {
                                     return (
-                                        <li className="text-gray-800 font-semibold" key={index}>
+                                        <li key={index}>
                                             {item.label}
                                         </li>
                                     );
@@ -170,11 +177,14 @@ function Dialog({ getProjectFunc, data, onclose }) {
                         )}
                     </Form.Item>
 
-                    <Form.Item name="description" label="Description:">
+                    <Form.Item
+                        name="description"
+                        label={<label className="text-gray-800 font-semibold">Description</label>}
+                    >
                         {!isUser() ? (
                             <Input.TextArea rows={5} placeholder="Description" />
                         ) : (
-                            <p className="text-gray-800 font-semibold">{form.getFieldValue('description')}</p>
+                            <p>{form.getFieldValue('description')}</p>
                         )}
                     </Form.Item>
                 </Form>

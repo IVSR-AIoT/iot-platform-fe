@@ -13,7 +13,11 @@ export default function SupportDialog({ detailRequest, closeDialog, getSupportRe
             message.error('Answer is empty!');
             return;
         }
+        if (!value.method) {
+            value.method = 'email';
+        }
         setLoading(true);
+
         try {
             await replyService(value, detailRequest.projectId);
             message.success('Successful!');
@@ -38,7 +42,6 @@ export default function SupportDialog({ detailRequest, closeDialog, getSupportRe
 
     const handleOk = () => {
         form.submit();
-        
     };
 
     const handleCancel = () => {
@@ -58,38 +61,41 @@ export default function SupportDialog({ detailRequest, closeDialog, getSupportRe
             >
                 <Spin spinning={loading}>
                     <Form form={form} onFinish={replySupportRequest}>
-                        <Form.Item label="Issue Subject:">
-                            <p className="text-gray-800 font-semibold">
+                        <Form.Item label={<label className="text-gray-800 font-semibold">Issue subject</label>}>
+                            <p>
                                 {detailRequest?.subject || 'No subject provided'}
                             </p>
                         </Form.Item>
                         {detailRequest?.isReplied && (
-                            <Form.Item label="Replied by:">
-                                <p className="text-gray-800 font-semibold">
+                            <Form.Item label={<label className="text-gray-800 font-semibold">Reply by</label>}>
+                                <p >
                                     {detailRequest?.adminName} <span>- {detailRequest?.adminEmail}</span>
                                 </p>
                             </Form.Item>
                         )}
-                        <Form.Item label="User:">
-                            <p className="text-gray-800 font-semibold">
+                        <Form.Item label={<label className="text-gray-800 font-semibold">User</label>}>
+                            <p>
                                 {detailRequest?.username} <span>- {detailRequest?.userEmail}</span>
                             </p>
                         </Form.Item>
-                        <Form.Item label="Issue Description:">
-                            <p className="text-gray-800 font-semibold">{detailRequest?.description}</p>
+                        <Form.Item label={<label className="text-gray-800 font-semibold">Issue description</label>}>
+                            <p >{detailRequest?.description}</p>
                         </Form.Item>
-                        <Form.Item label="Notification Method" name={'method'} >
-                            <Radio.Group defaultValue="email">
-                                <Radio value="email">Email</Radio>
-                                <Radio value="message">Message</Radio>
-                            </Radio.Group>
-                        </Form.Item>
-                        <Form.Item name="reply" label="Reply">
+                        <Form.Item
+                            label={<label className="text-gray-800 font-semibold">Notification methods</label>}
+                            name={'method'}
+                        >
                             {detailRequest?.isReplied ? (
-                                <p className="text-gray-800 font-semibold">{detailRequest?.adminResponse}</p>
+                                <div>{detailRequest?.methodMessage || 'You have chosen before!'}</div>
                             ) : (
-                                <TextArea rows={7} />
+                                <Radio.Group defaultValue="email">
+                                    <Radio value="email">Email</Radio>
+                                    <Radio value="message">Message</Radio>
+                                </Radio.Group>
                             )}
+                        </Form.Item>
+                        <Form.Item name="reply" label={<label className="text-gray-800 font-semibold">Reply</label>}>
+                            {detailRequest?.isReplied ? <p>{detailRequest?.adminResponse}</p> : <TextArea rows={7} />}
                         </Form.Item>
                     </Form>
                 </Spin>
