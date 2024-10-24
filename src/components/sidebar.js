@@ -1,4 +1,3 @@
-
 import { Menu } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -50,7 +49,7 @@ const Sidebar = () => {
 
     return (
         <Menu
-            className="h-max-[100vh overflow-y-auto scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-300"
+            className="bg-[#F0F2F5]"
             onClick={onClick}
             style={{ width: 256 }}
             selectedKeys={[selectedKey]}

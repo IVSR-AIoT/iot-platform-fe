@@ -1,12 +1,12 @@
 import { Table } from 'antd';
 import Search from 'antd/es/input/Search';
 import React, { useCallback, useEffect, useState } from 'react';
-import SupportDialog from '~/components/supportDialog';
+import SupportDialog from '~/components/manage-support/supportDialog';
 import { getList, getListByQuery } from '~/services/supportService';
 import { columns as initialColumns } from '~/configs/columnSupport';
 import useDebounce from '~/hook/useDebounce';
 import { formatDate } from '~/configs/utils';
-import CreateSupportModal from '~/components/createSupportModal';
+import CreateSupportModal from '~/components/manage-support/createSupportModal';
 
 export default function ManageSupport() {
     const [supportRequests, setSupportRequests] = useState([]);
@@ -35,9 +35,10 @@ export default function ManageSupport() {
             } else {
                 res = await getListByQuery(debouncedValue);
             }
-            console.log(res);
+
             const data = res.map((item) => {
                 return {
+                    key: item.id,
                     subject: item.title,
                     username: item.user.name,
                     userEmail: item.user.email,

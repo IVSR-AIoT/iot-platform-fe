@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import Dialog from '~/components/dialog';
+import Dialog from '~/components/project/dialog';
 import { getProject } from '~/services/projectServices';
-import Card from '~/components/card';
+import Card from '~/components/project/card';
 import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import CreateSupportModal from '~/components/createSupportModal';
+import CreateSupportModal from '~/components/manage-support/createSupportModal';
 
 export default function Project() {
     const [totalProjects, setTotalProjects] = useState([]);

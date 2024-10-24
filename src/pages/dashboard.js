@@ -1,4 +1,4 @@
-import CreateSupportModal from '~/components/createSupportModal';
+import CreateSupportModal from '~/components/manage-support/createSupportModal';
 
 function Dashboard() {
     return (

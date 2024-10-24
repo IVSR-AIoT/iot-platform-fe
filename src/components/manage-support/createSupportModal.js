@@ -8,27 +8,36 @@ export default function CreateSupportModal() {
     const [form] = Form.useForm();
 
     const createIssue = async (value) => {
-        if(value.title.trim() ==='' || value.description.trim()===''){
-            message.error("data is empty!")
-            return
+        if (value.title.trim() === '' || value.description.trim() === '') {
+            message.error('data is empty!');
+            return;
         }
-        try{
-            await CreateIssueService(value)
-            message.success("successful!")
-        }catch(error){
-            message.error("error")
+        try {
+            await CreateIssueService(value);
+            message.success('successful!');
+        } catch (error) {
+            message.error('error');
         }
     };
 
     const handleOk = () => {
         form.submit();
-        context.handleCancel()
+        context.handleCancel();
     };
 
     return (
         <div>
             <Modal title="Basic Modal" open={context.isModalOpen} onOk={handleOk} onCancel={context.handleCancel}>
-                <Form form={form} onFinish={createIssue}>
+                <Form
+                    form={form}
+                    onFinish={createIssue}
+                    labelCol={{
+                        span: 6,
+                    }}
+                    wrapperCol={{
+                        span: 16,
+                    }}
+                >
                     <Form.Item name={'title'} label={'Title:'} required={true}>
                         <Input placeholder="Title" />
                     </Form.Item>

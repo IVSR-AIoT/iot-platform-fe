@@ -8,6 +8,7 @@ import Register from '~/pages/register';
 import ForgotPassword from '~/pages/forgotPassword';
 import ResetPassword from '~/pages/resetPassword';
 import ManageSupport from './pages/manageSupport';
+import ManageProject from './pages/manageProject';
 
 const publicRoutes = [
     { path: RoutesConfig.login, component: Login },
@@ -22,6 +23,7 @@ const privateRoutes = [
     { path: RoutesConfig.device, component: Device },
     { path: RoutesConfig.dashboard, component: Dashboard },
     { path: RoutesConfig.manageSupport, component: ManageSupport },
+    { path: RoutesConfig.manageProject, component: ManageProject },
 ];
 
 export { publicRoutes, privateRoutes };

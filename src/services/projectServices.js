@@ -20,3 +20,8 @@ export const deleteProject = async (projectId) => {
     const response = await api.delete(`/project/${projectId}`);
     return response;
 };
+
+export const getListProjectService = async () => {
+    const response = await api.get('/project/list');
+    return response.data;
+};

@@ -22,7 +22,6 @@ function Dialog({ getProjectFunc, data, onclose }) {
             return item;
         });
 
-        console.log(value);
         try {
             if (data) {
                 await updateProject(data.project.id, value);

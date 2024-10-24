@@ -1,10 +1,10 @@
 import {
     SignalFilled,
     MailOutlined,
-    SettingOutlined,
     ProjectOutlined,
     PhoneOutlined,
     ProjectFilled,
+    SettingOutlined,
 } from '@ant-design/icons';
 export const listItems = [
     {
@@ -41,74 +41,9 @@ export const listItems = [
     },
     {
         key: 'sub3',
-        label: 'Navigation Three',
+        label: 'Manage Project',
+        route: '/manage-project',
+        roleid: 2,
         icon: <SettingOutlined />,
-        children: [
-            {
-                key: '9',
-                label: 'Option 9',
-            },
-            {
-                key: '10',
-                label: 'Option 10',
-            },
-            {
-                key: '11',
-                label: 'Option 11',
-            },
-            {
-                key: '12',
-                roleid: 2,
-                label: 'Option 12',
-            },
-        ],
-    },
-    {
-        key: 'sub3',
-        label: 'Navigation Three',
-        icon: <SettingOutlined />,
-        children: [
-            {
-                key: '9',
-                label: 'Option 9',
-            },
-            {
-                key: '10',
-                label: 'Option 10',
-            },
-            {
-                key: '11',
-                label: 'Option 11',
-            },
-            {
-                key: '12',
-                roleid: 2,
-                label: 'Option 12',
-            },
-        ],
-    },
-    {
-        key: 'sub3',
-        label: 'Navigation Three',
-        icon: <SettingOutlined />,
-        children: [
-            {
-                key: '9',
-                label: 'Option 9',
-            },
-            {
-                key: '10',
-                label: 'Option 10',
-            },
-            {
-                key: '11',
-                label: 'Option 11',
-            },
-            {
-                key: '12',
-                roleid: 2,
-                label: 'Option 12',
-            },
-        ],
     },
 ];
