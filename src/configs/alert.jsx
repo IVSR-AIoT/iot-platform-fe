@@ -1,11 +1,11 @@
-export const messageConfigs = ['object', 'sensor', 'notification']
+export const messageConfigs = ['notification', 'object', 'sensor']
 export const messageTypes = [
   { label: 'Object', value: 'object' },
   { label: 'Sensor', value: 'sensor' },
   { label: 'Notification', value: 'notification' }
 ]
-export const type = [
-  { label: 'All', value: 'all' },
+export const eventType = [
+  { label: 'All', value: null },
   { label: 'Human', value: 'human' },
   { label: 'Vehicle', value: 'vehicle' }
 ]

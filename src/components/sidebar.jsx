@@ -51,7 +51,7 @@ const Sidebar = () => {
 
   return (
     <Menu
-      className="bg-[#F0F2F5]"
+      className="bg-[#fff]"
       onClick={onClick}
       style={{ width: 256 }}
       selectedKeys={[selectedKey]}

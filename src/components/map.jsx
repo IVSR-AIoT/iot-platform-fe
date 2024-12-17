@@ -16,7 +16,7 @@ export default function Map() {
       center={[21.005453, 105.8451935]}
       zoom={13}
       scrollWheelZoom={true}
-      className="w-[100%] h-[200px]"
+      className="w-[300px] h-[200px] rounded-lg"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker position={[21.005453, 105.8451935]}>

@@ -125,16 +125,18 @@ const Device = () => {
   }, [])
 
   return (
-    <div className="h-screen p-5 bg-[#F0F2F5]">
+    <div className="h-screen p-5 bg-[#F0F2F5] ">
       <CreateSupportModal />
-      <Table
-        columns={modifiedColumn}
-        dataSource={dataSource}
-        pagination
-        rowClassName={(record) =>
-          record.status ? '' : 'bg-[#aaa] text-gray-500 pointer-events-none opacity-60'
-        }
-      />
+      <div className="w-full md:overflow-scroll">
+        <Table
+          columns={modifiedColumn}
+          dataSource={dataSource}
+          pagination
+          rowClassName={(record) =>
+            record.status ? '' : 'bg-[#aaa] text-gray-500 pointer-events-none opacity-60'
+          }
+        />
+      </div>
       <UpdateDeviceModal
         openModal={openModal}
         device={device}

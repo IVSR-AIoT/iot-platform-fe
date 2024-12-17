@@ -63,7 +63,7 @@ const Header = () => {
   })) */
 
   return (
-    <div className="h-[50px] w-full bg-white flex justify-between items-center px-[30px] fixed top-0 z-50 shadow-sm">
+    <div className="h-[50px] w-full bg-[#F0F2F5] flex justify-between items-center px-[30px] fixed top-0 z-50 shadow-sm">
       <div className="h-full w-full flex">
         <MenuFoldOutlined onClick={toggleSidebar} className="text-[24px]" />
         {/* {enhancedNavigation.map((item, index) => (

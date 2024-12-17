@@ -5,11 +5,8 @@ const { RangePicker } = DatePicker
 
 export default function FilterMenu({ setDateRange, projectOption, setSelectedProject }) {
   return (
-
     <div className="grid lg:grid-cols-3 lg:place-content-center lg:place-items-center mb-5 md:grid-cols-1 md:place-items-start gap-2">
       <div className="relative w-[250px]">
-
-  
         <Select
           options={projectOption}
           maxTagCount={'responsive'}

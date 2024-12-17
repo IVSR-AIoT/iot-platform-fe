@@ -6,8 +6,7 @@ export const getMessageService = async (
   start,
   end,
   eventType,
-  pagnition,
-  limit
+  pagnition
 ) => {
   try {
     const response = await apiInstances.get(`/${messageType}?`, {
@@ -17,7 +16,7 @@ export const getMessageService = async (
         end: end,
         eventType: eventType,
         page: pagnition,
-        limit: limit
+        limit: 5
       }
     })
     return response.data

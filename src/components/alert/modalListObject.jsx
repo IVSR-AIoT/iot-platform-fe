@@ -21,11 +21,14 @@ export default function ModalListObject({ detailMessage, openModal, setOpenModal
   const [loading, setLoading] = useState(false)
 
   const handleObject = useCallback(() => {
-    const finalData = detailMessage?.object_list?.map((item) => {
-      const event = detailMessage.event_list.find((data) => data.object_id === item.id)
-      return { ...item, event: event || null }
-    })
-    setDataSource(finalData || [])
+    console.log(detailMessage)
+    if (detailMessage) {
+      const finalData = detailMessage?.object_list?.map((item) => {
+        const event = detailMessage?.event_list.find((data) => data.object_id === item.id)
+        return { ...item, event: event || null }
+      })
+      setDataSource(finalData || [])
+    }
   }, [detailMessage])
 
   const handleNoti = useCallback(() => {

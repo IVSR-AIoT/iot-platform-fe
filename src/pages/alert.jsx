@@ -5,23 +5,25 @@ import ModalListObject from '~/components/alert/modalListObject'
 import FilterMenu from '~/components/alert/search'
 import MessageList from '~/components/alert/messageList'
 import { messageConfigs } from '~/configs/alert'
-import { listProjectAndDevice } from '~/services/projectServices'
 import { getMessageService } from '~/services/messageService'
-import { isUser } from '~/hook/useAuth'
-import useDebounce from '~/hook/useDebounce'
 
 function Alert() {
-  const [projectAndDevice, setProjectAndDevice] = useState([])
-  const [projectOptions, setProjectOptions] = useState([])
-  const [deviceOptions, setDeviceOptions] = useState([])
+  const [messages, setMessages] = useState({
+    object: [],
+    sensor: [],
+    notification: []
+  })
+  const [totalPage, setTotalPage] = useState({
+    object: 0,
+    sensor: 0,
+    notification: 0
+  })
   const [loading, setLoading] = useState(false)
   const [messageType, setMessageType] = useState(messageConfigs[0])
   const [data, setData] = useState([])
-  const [totalPage, setTotalPage] = useState()
   const [pagination, setPagination] = useState(1)
   const [openModal, setOpenModal] = useState(false)
   const [detailMessage, setDetailMessage] = useState()
-  const [limit, setLimit] = useState(5)
   const [selectedDevice, setSelectedDevice] = useState()
   const [selectedProject, setSelectedProject] = useState()
   const [eventType, setEventType] = useState()
@@ -30,109 +32,89 @@ function Alert() {
     endDate: null
   })
 
-  //fetch device
-  const getListProjectAndDevice = async () => {
-    setLoading(true)
-    try {
-      const res = await listProjectAndDevice()
-      setProjectAndDevice(res)
-      const projectOptions = res.map((item) => ({ label: item.name, value: item.id }))
-      setProjectOptions(projectOptions)
-    } catch {
-      message.error('Error fetching projects and devices.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleAssignDevice = (projectId) => {
-    const project = projectAndDevice.find((item) => item.id === projectId)
-    const device = project?.device.map((item) => ({ label: item.name, value: item.id }))
-    setDeviceOptions(device)
-  }
-
-  //fetch message
-  const limitDebounce = useDebounce(limit, 500)
-  const getMessage = async () => {
-    if (!selectedProject || !selectedDevice || !messageType) {
-      message.warning('Please select a project, device, and message type.')
-      return
-    }
-    if (isUser()) {
-      setMessageType('notification')
-    }
-    setLoading(true)
-    try {
-      const res = await getMessageService(
-        messageType,
-        selectedDevice,
-        dateRange.startDate,
-        dateRange.endDate,
-        eventType,
-        pagination,
-        limitDebounce
-      )
-      setTotalPage(res.total)
-      setData(res.data)
-    } catch (error) {
-      console.error(error)
-      message.error('Failed to retrieve messages. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  //call function
   useEffect(() => {
-    getListProjectAndDevice()
+    const fetchMessage = async () => {
+      setLoading(true)
+      try {
+        const results = await Promise.all(
+          messageConfigs.map(async (type) => {
+            const response = await getMessageService(type)
+            return { type, data: response.data, total: response.total }
+          })
+        )
+
+        const updatedMessages = results.reduce((acc, { type, data }) => {
+          acc[type] = data
+          return acc
+        }, {})
+
+        setMessages(updatedMessages)
+        const updatedTotalPage = results.reduce((acc, { type, total }) => {
+          acc[type] = total
+          return acc
+        }, {})
+        setTotalPage(updatedTotalPage)
+      } catch {
+        message.error('Error fetching messages.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchMessage()
   }, [])
 
   useEffect(() => {
-    if (projectOptions.length > 0) {
-      const firstProject = projectOptions[0].value
-      setSelectedProject(firstProject)
-      handleAssignDevice(firstProject)
+    if (messages && pagination === 1) {
+      setData(messages[`${messageType}`])
     }
-  }, [projectOptions])
+  }, [messages, messageType, pagination])
 
   useEffect(() => {
-    if (deviceOptions?.length > 0) {
-      const firstDevice = deviceOptions[0].value
-      setSelectedDevice(firstDevice)
-    }
-  }, [deviceOptions])
+    const getMessage = async () => {
+      setLoading(true)
+      try {
+        const res = await getMessageService(
+          messageType,
+          selectedDevice,
+          dateRange.startDate,
+          dateRange.endDate,
+          eventType,
+          pagination
+        )
 
-  useEffect(() => {
-    setPagination(1)
-    if (selectedDevice) {
+        setData(res.data)
+      } catch {
+        message.error('Failed to retrieve messages. Please try again.')
+      } finally {
+        setLoading(false)
+      }
+    }
+    if (
+      selectedProject ||
+      selectedDevice ||
+      dateRange.startDate ||
+      dateRange.endDate ||
+      eventType ||
+      pagination !== 1
+    ) {
       getMessage()
-    } else {
-      setData([])
     }
-  }, [
-    selectedProject,
-    selectedDevice,
-    messageType,
-    dateRange,
-    eventType,
-    pagination,
-    limitDebounce
-  ])
+  }, [selectedProject, selectedDevice, messageType, dateRange, eventType, pagination])
 
   return (
     <Spin spinning={loading}>
-      <div className="min-h-screen bg-[#F0F2F5] p-5">
+      <div className="min-h-screen bg-[#fff] p-5">
         <FilterMenu
-          deviceOptions={deviceOptions}
-          handleAssignDevice={handleAssignDevice}
+          messageType={messageType}
+          selectedDevice={selectedDevice}
+          selectedProject={selectedProject}
+          setMessageType={setMessageType}
           setEventType={setEventType}
           setDateRange={setDateRange}
-          setLimit={setLimit}
-          limit={limit}
           setTotalPage={setTotalPage}
-          messageType={messageType}
-          setMessageType={setMessageType}
-          projectOptions={projectOptions}
+          setSelectedDevice={setSelectedDevice}
+          setSelectedProject={setSelectedProject}
         />
         <CreateSupportModal />
         <MessageList
@@ -152,8 +134,8 @@ function Alert() {
         <Pagination
           align="center"
           defaultCurrent={1}
-          total={totalPage}
-          pageSize={limit}
+          total={totalPage[`${messageType}`]}
+          pageSize={5}
           onChange={(value) => {
             setPagination(value)
           }}

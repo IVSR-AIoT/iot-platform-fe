@@ -1,8 +1,8 @@
 import { Button, Image, List } from 'antd'
 import PropTypes from 'prop-types'
 import { formatDate } from '~/configs/utils'
-import Map from '../map'
 import { useEffect, useState } from 'react'
+import Map from '../map'
 
 export default function MessageList({
   data,
@@ -10,24 +10,15 @@ export default function MessageList({
   setDetailMessage,
   messageType = 'notification'
 }) {
-  const [previewImg, setPreviewImg] = useState([])
-
+  const [previewImg, setPreviewImg] = useState()
   useEffect(() => {
-    if (!data) return
-
-    const list = []
-    data.forEach((item) => {
-      if (Array.isArray(item.object_list)) {
-        item.object_list.some((object) => {
-          if (object.image_URL && list.length < 2) {
-            list.push(object.image_URL)
-          }
-          return list.length >= 2
-        })
-      }
-    })
-    setPreviewImg(list)
-  }, [data])
+    if (data && messageType === 'object') {
+      const listImg = data[0]?.object_list?.map((object) => object.image_URL)
+      setPreviewImg(listImg)
+    } else {
+      setPreviewImg(null)
+    }
+  }, [data, messageType])
 
   const getDescription = (type, item) => {
     switch (type) {
@@ -44,7 +35,6 @@ export default function MessageList({
     <div className="min-h-[100vh]">
       <List
         className="w-full"
-        locale={{ emptyText: 'No messages available' }}
         itemLayout="vertical"
         dataSource={data}
         renderItem={(item) => (
@@ -61,6 +51,9 @@ export default function MessageList({
               >
                 Detail
               </Button>,
+              <Button type="primary" key="watch-video">
+                Watch video
+              </Button>,
               <Button type="primary" ghost key="accept">
                 Accept
               </Button>,
@@ -69,28 +62,18 @@ export default function MessageList({
               </Button>
             ]}
             extra={
-              <div className="flex gap-4 flex-wrap">
-                {messageType !== 'sensor' && previewImg.length > 0 && (
-                  <Image.PreviewGroup
-                    preview={{
-                      onChange: (current, prev) =>
-                        console.log(`current index: ${current}, prev index: ${prev}`)
-                    }}
-                  >
-                    {previewImg.map((url, index) => (
-                      <Image
-                        key={index}
-                        width={200}
-                        height={200}
-                        style={{ objectFit: 'cover' }}
-                        src={url}
-                      />
-                    ))}
-                  </Image.PreviewGroup>
+              <div
+                className={` ${messageType === 'object' ? 'w-[600px] flex justify-between' : 'w-[300px'}`}
+              >
+                {messageType === 'object' && (
+                  <Image
+                    width={200}
+                    className="rounded-lg shadow object-cover"
+                    src={previewImg}
+                    alt="IMAGE ERROR"
+                  />
                 )}
-                <div className="w-[300px]">
-                  <Map />
-                </div>
+                <Map />
               </div>
             }
           >
